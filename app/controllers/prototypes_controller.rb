@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :set_prototype, except: [:index, :create]
+  before_action :set_prototype, except: [:index, :create, :new]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :outsider, only: [:edit, :update, :destroy]
 
@@ -8,6 +8,7 @@ class PrototypesController < ApplicationController
   end
 
   def new
+    @prototype = Prototype.new
   end
 
   def create
@@ -50,6 +51,7 @@ class PrototypesController < ApplicationController
 
   def set_prototype
     @prototype = Prototype.find(params[:id])
+  end
 
   def outsider
     redirect_to root_path unless current_user == @prototype.user
